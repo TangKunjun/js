@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+
+    var copyObj = function(obj,obj2){
+        var obj2 = obj2||{};
+        for (var key in obj){
+            if (typeof obj[key]==='object'&&obj[key]!==null){
+                obj2[key]=(obj[key].constructor===Array)?[]:{}
+                copyObj(obj[key],obj2[key])
+            } else{
+                obj2[key] = obj[key];
+            }
+        }
+        return obj2
+    }
+
+
+    var copyObj2 = function (obj) {
+        var newObj= obj instanceof Array?[]:{};
+        for (var key in obj){
+            if (typeof obj[key]==='object'&&obj[key]!==null) {
+                newObj[key] = copyObj2(obj[key])
+            }else{
+                newObj[key] = obj[key];
+            }
+        }
+        return newObj
+
+    }
+
+    //既能拷贝对象又能拷贝基本类型
+    var copyObj3 = function (obj) {
+        var newObj = null;
+
+        if (typeof obj==='object'&&obj!==null) {
+            newObj= obj instanceof Array?[]:{};
+
+            for (var key in obj){
+              newObj[key] = copyObj3(obj[key])
+            }
+        }else{
+            newObj = obj;
+        }
+        return newObj;
+    }
+
+
+    var obj1 = {
+        a:1,
+        b:2,
+        c:3,
+        e:{
+            a:1,
+            b:3
+        },
+        d:[1,2,3,4,5,6,7],
+    }
+    var newObj = copyObj(obj1);
+    var newObj2 = copyObj2(obj1);
+    var newObj3 = copyObj3(obj1)
+    obj1.d[8]=234;
+    obj1.c=234;
+
+
+
+    console.log(newObj)
+    console.log(newObj2)
+    console.log(newObj3)
+
+
+    console.log("----------------------------");
+
+    console.log(copyObj({a:null}))
+    console.log(copyObj2({a:null}))
+    console.log(copyObj3({a:null}))
+
+    console.log("----------------------------");
+
+    console.log(copyObj(123))
+    console.log(copyObj2(123))
+    console.log(copyObj3(123))
+
+</script>

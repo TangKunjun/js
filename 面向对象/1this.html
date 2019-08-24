@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+
+    //函数中的this指向调用该函数的对象
+
+    var x =1;
+    function MyClass() {
+        this.x = 2;
+    }
+    MyClass.prototype.x = 4;
+    MyClass.prototype.method = function () {
+        console.log(this.x)
+    }
+    const prototype = MyClass.prototype;
+    const method = prototype.method;
+
+
+    new MyClass().method(); //实例调用的  2
+    prototype.method();  //被MyClass.prototype这个对象调用 4
+    method();            //被window调用了 1
+</script>

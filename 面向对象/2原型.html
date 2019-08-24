@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    Object.prototype.y = 100;
+
+    const obj = {
+        x:1
+    }
+
+    obj.prototype = {
+        y:10
+    }
+
+    function F() {}
+
+    F.prototype.y = 2;
+    F.prototype = obj;
+
+    const f = new F();
+
+    console.log(f.x+f.y);
+
+    //f.x 去找F函数内部的x  没有  去找F函数的prototype 找到 x=1
+    //f.y 去找F函数内部的y  没有  去找F函数的prototype的y属性 本来有结果被obj覆盖了 没有 继续找 Object的prototype的y属性 y =100
+
+
+
+    //-------------------- 原型与原型链  -----------------------------
+
+    function Fn(){
+        this.x = 3
+    }
+
+    const ff = new Fn();
+
+    console.log(ff.__proto__ === Fn.prototype);   //true   实例的__proto__ 指向构造函数的prototype
+    console.log(ff.x);                           //3   先找构造函数里面有没有 没有的话找构造函数的prototype下的属性
+    console.log(ff.y);                           //100   构造函数的prototype下找不到就去找Object.prototype下的属性
+
+
+
+    //------------------------  Object.create  ------------------------------------
+
+    const obj4 = Object.create({x:1});  //Object.create并不是直接创建一个可以用的对象，而是创建一个对象原型
+    console.log(obj4);
+
+</script>
