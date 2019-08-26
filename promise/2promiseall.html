@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    var p1 = new Promise(function (resolve,reject) {
+        setTimeout(function () {
+            console.log('1');
+            resolve(10)
+        },2000)
+    })
+
+    var p2 = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            console.log(2);
+            resolve(20);
+        },3000)
+    })
+
+
+    //要求必须等以上函数都执行完毕之后 再进行逻辑操作
+
+    Promise.all([p1, p2]).then(function (a) {
+        console.log(a); // [10,20]
+        console.log("执行")
+    })
+
+
+</script>

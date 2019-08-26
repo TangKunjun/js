@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+
+<script>
+
+    var a = 10;
+    setTimeout(function () {
+        a = 300
+    },1000)
+
+    console.log(a);
+
+
+    //-----------------------------
+
+   var p1 =  new Promise(function (resolve, reject) {    //第一个参数调用的时候 可以把当前的promise对象改成成功状态，第二参数是改成失败状态
+        setTimeout(function () {
+            a = 400;
+            resolve(a); //设置成功状态，只要状态改变了then方法就能被执行，传入的参数会成为then里面函数的参数
+        },1000)
+    })
+
+    p1.then(function (b) {
+        console.log('成功',b);
+    },function () {
+        console.log('失败')
+    })
+
+
+    console.log(p1)  // promise有三种状态：
+                           // pending：初始状态，既不是成功，也不是失败
+                           //  fulfilled/resolved：意味着操作成功完成
+                           //   rejected：意味着操作失败
+
+
+
+
+    //-------------------------链-------------------
+
+    new Promise(function (resolve,reject) {
+        // resolve();  // 打印成功，1 成功3
+
+        reject('第一步错误');    //打印失败，2 成功3
+    }).then(          //如果then里面没有做处理函数返回的新promise对象继承上一个一个promise
+                      //如果then里面有处理函数返回的新promise状态会默认为成功
+                      //如果手动传一个失败的promise的对象下一个then就会走失败的函数
+        function () {
+            console.log('成功',1)
+        },
+        function () {
+            console.log('失败',2)
+        }
+    ).then(
+        function () {
+            console.log('成功',3)
+        },
+        function () {
+            console.log('失败',4)
+        }
+    )
+        //再添加链式
+        .then(
+        function () {
+            return new Promise(function (resolve, reject) {
+                reject('我还是错误');
+            })
+        }
+    )
+        .then(
+        function () {
+           console.log('成功',5)
+        },
+        function () {
+            console.log('失败',6)
+        }
+    )
+
+    //问题：不易中途终后续操作
+    //解决方法使用catch
+
+        .catch(function (err) {   //catch能捕获上面的任意错误
+            console.log(123);
+            console.log(err)
+        })
+
+
+
+
+</script>
