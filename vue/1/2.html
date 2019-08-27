@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+      <input type="text" v-on:input="changes" />
+      <input type="text" v-model="msg2">
+      <input type="checkbox" />
+      <p v-bind:title="msg">msg1:{{msg}}</p>
+      <p v-bind:title="[1,2,3].map(item => item*2)">{{1+1}}</p>
+      <p>msg2:{{msg2}}</p>
+
+
+      <ul>
+          <li v-for="value,index in arry">{{value}}---{{index}}</li>
+      </ul>
+      <span v-for="value,key,index in obj">{{value}} - {{key}} - {{index}}</span>
+  </div>
+</body>
+</html>
+<script>
+    //Vue中的指令以v-开头
+    //Vue中绑定事件
+       //使用v-on:事件名 = "表达式"
+    //双向数据绑定 v-model
+    //循环 v-for="value,index in arr"
+
+
+    var message = "又来了";
+    var vm = new Vue({
+        el:"#app",
+        data:{
+            msg:message,
+            msg2:123,
+            arry:[1,2,3,4,5],
+            obj:{
+                a:1,
+                b:2,
+                c:3
+            }
+        },
+        methods: {             //定义方法
+            changes:function (ev) {
+                this.msg=ev.target.value
+            }
+        }
+    })
+
+
+</script>

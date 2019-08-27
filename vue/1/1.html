@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="id">
+      {{msg}}
+  </div>
+</body>
+</html>
+<script>
+    var message = "hello,vue"
+
+    //根实例 启动应用
+    //传入一个对象作为参数，称之为选项对象，告诉vue做什么事情
+   var vm =  new Vue({
+        el:"#id",  //element可以写css选择器 也能写js的dom
+        data:{   //数据对象
+            msg:message
+        }
+    });
+
+
+    console.log(vm.msg)
+
+    vm.msg = 123;   //数据改变 视图也会改变
+</script>
