@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    function checkAudio() {
+        var myAudio = document.createElement("audio");
+        console.log(myAudio.canPlayType("audio/mpeg"))
+        console.log(myAudio.canPlayType("audio/ogg;codecs='virbis'"))
+        console.log(myAudio.canPlayType("audio/mp4;codecs='mp4a.40.5'"));
+
+        if(myAudio.canPlayType){
+            if(myAudio.canPlayType("audio/mpeg")!=""){
+                document.write("您的浏览器支持mp3编码<br>")
+            }
+            if(myAudio.canPlayType("audio/ogg;codecs='virbis'")!=''){
+                document.write("您的浏览器支持ogg编码<br>")
+            }
+            if(myAudio.canPlayType("audio/mp4;codecs='mp4a.40.5'")!=''){
+                document.write("您的浏览器支持mp4编码<br>")
+            }
+        }else{
+            document.write("你的浏览器不支持要检测的音频格式")
+        }
+    }
+    window.onload=function () {
+        checkAudio()
+    }
+</script>
